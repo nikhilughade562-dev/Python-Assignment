@@ -1,0 +1,139 @@
+# 1. Reverse an Array
+def reverse_array(arr):
+    left = 0
+    right = len(arr) - 1
+    while left < right:
+        arr[left], arr[right] = arr[right], arr[left]
+        left += 1
+        right -= 1
+    return arr
+
+
+# 2. Find the Maximum & Minimum Element
+def find_max_min(arr):
+    maximum = arr[0]
+    minimum = arr[0]
+    for num in arr:
+        if num > maximum:
+            maximum = num
+        if num < minimum:
+            minimum = num
+    return maximum, minimum
+
+
+# 3. Find the Sum of Elements
+def find_sum(arr):
+    total = 0
+    for num in arr:
+        total += num
+    return total
+
+
+# 4. Find the Second Largest Element
+def second_largest(arr):
+    largest = float('-inf')
+    second = float('-inf')
+    for num in arr:
+        if num > largest:
+            second = largest
+            largest = num
+        elif num > second and num != largest:
+            second = num
+    return second
+
+
+# 5. Count Frequency of Elements
+def count_frequency(arr):
+    freq = {}
+    for num in arr:
+        if num in freq:
+            freq[num] += 1
+        else:
+            freq[num] = 1
+    return freq
+
+
+# 6. Check if Array is Sorted
+def is_sorted(arr):
+    for i in range(len(arr) - 1):
+        if arr[i] > arr[i + 1]:
+            return False
+    return True
+
+
+# 7. Rotate Array by k Positions (Right Rotation)
+def rotate_array(arr, k):
+    n = len(arr)
+    k = k % n
+    return arr[-k:] + arr[:-k]
+
+
+# 8. Find Pair with Given Sum
+def find_pair(arr, target):
+    seen = set()
+    for num in arr:
+        complement = target - num
+        if complement in seen:
+            return (complement, num)
+        seen.add(num)
+    return None
+
+
+# 9. Remove Duplicates from Array Maintain Order as well
+def remove_duplicates(arr):
+    seen = set()
+    result = []
+    for num in arr:
+        if num not in seen:
+            result.append(num)
+            seen.add(num)
+    return result
+
+
+# 10. Merge Two Sorted Arrays
+def merge_sorted_arrays(arr1, arr2):
+    i = j = 0
+    merged = []
+    while i < len(arr1) and j < len(arr2):
+        if arr1[i] < arr2[j]:
+            merged.append(arr1[i])
+            i += 1
+        else:
+            merged.append(arr2[j])
+            j += 1
+    while i < len(arr1):
+        merged.append(arr1[i])
+        i += 1
+    while j < len(arr2):
+        merged.append(arr2[j])
+        j += 1
+    return merged
+
+
+# 11. Remove Given Element from Array
+def remove_element(arr, value):
+    index = 0
+    for i in range(len(arr)):
+        if arr[i] != value:
+            arr[index] = arr[i]
+            index += 1
+    return arr[:index]
+
+
+# 12. Find the Missing Number (1 to n)
+def find_missing_number(arr, n):
+    expected_sum = n * (n + 1) // 2
+    actual_sum = sum(arr)
+    return expected_sum - actual_sum
+
+
+# 13. Find Duplicates in an Array
+def find_duplicates(arr):
+    seen = set()
+    duplicates = set()
+    for num in arr:
+        if num in seen:
+            duplicates.add(num)
+        else:
+            seen.add(num)
+    return list(duplicates)
