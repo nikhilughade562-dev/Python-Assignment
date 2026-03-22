@@ -137,3 +137,190 @@ def find_duplicates(arr):
         else:
             seen.add(num)
     return list(duplicates)
+
+# 14. Intersection of Two Arrays
+def intersection(arr1, arr2):
+    result = []
+    for i in range(len(arr1)):
+        for j in range(len(arr2)):
+            if arr1[i] == arr2[j]:
+                # check duplicate
+                found = False
+                for k in range(len(result)):
+                    if result[k] == arr1[i]:
+                        found = True
+                        break
+                if not found:
+                    result.append(arr1[i])
+    return result
+
+
+# 15. Union of Two Arrays
+def union(arr1, arr2):
+    result = []
+
+    # add arr1 elements
+    for i in range(len(arr1)):
+        found = False
+        for j in range(len(result)):
+            if result[j] == arr1[i]:
+                found = True
+                break
+        if not found:
+            result.append(arr1[i])
+
+    # add arr2 elements
+    for i in range(len(arr2)):
+        found = False
+        for j in range(len(result)):
+            if result[j] == arr2[i]:
+                found = True
+                break
+        if not found:
+            result.append(arr2[i])
+
+    return result
+
+
+# 16. Check if Two Arrays Are Equal
+def are_equal(arr1, arr2):
+    if len(arr1) != len(arr2):
+        return False
+
+    visited = [False] * len(arr2)
+
+    for i in range(len(arr1)):
+        found = False
+        for j in range(len(arr2)):
+            if arr1[i] == arr2[j] and not visited[j]:
+                visited[j] = True
+                found = True
+                break
+        if not found:
+            return False
+    return True
+
+
+# 17. Leader Elements
+def leaders(arr):
+    n = len(arr)
+    result = []
+
+    max_right = arr[n - 1]
+    result.append(max_right)
+
+    for i in range(n - 2, -1, -1):
+        if arr[i] > max_right:
+            result.append(arr[i])
+            max_right = arr[i]
+
+    # reverse manually
+    for i in range(len(result)//2):
+        temp = result[i]
+        result[i] = result[len(result)-1-i]
+        result[len(result)-1-i] = temp
+
+    return result
+
+
+# 18. Move Zeroes to End
+def move_zeros(arr):
+    n = len(arr)
+    result = [0] * n
+    index = 0
+
+    for i in range(n):
+        if arr[i] != 0:
+            result[index] = arr[i]
+            index += 1
+
+    return result
+
+
+# 19. Subarray with Given Sum (positive numbers)
+def subarray_sum(arr, target):
+    start = 0
+    curr_sum = 0
+
+    for end in range(len(arr)):
+        curr_sum += arr[end]
+
+        while curr_sum > target and start <= end:
+            curr_sum -= arr[start]
+            start += 1
+
+        if curr_sum == target:
+            result = []
+            for i in range(start, end + 1):
+                result.append(arr[i])
+            return result
+
+    return []
+
+
+# 20. Rotate Array Left by k
+def rotate_left(arr, k):
+    n = len(arr)
+    k = k % n
+
+    result = [0] * n
+    index = 0
+
+    for i in range(k, n):
+        result[index] = arr[i]
+        index += 1
+
+    for i in range(0, k):
+        result[index] = arr[i]
+        index += 1
+
+    return result
+
+
+# 21. Kth Smallest Element (Selection Sort approach)
+def kth_smallest(arr, k):
+    n = len(arr)
+
+    # selection sort
+    for i in range(n):
+        min_idx = i
+        for j in range(i + 1, n):
+            if arr[j] < arr[min_idx]:
+                min_idx = j
+
+        temp = arr[i]
+        arr[i] = arr[min_idx]
+        arr[min_idx] = temp
+
+    return arr[k - 1]
+
+
+# 22. Find All Subarrays
+def all_subarrays(arr):
+    result = []
+
+    for i in range(len(arr)):
+        for j in range(i, len(arr)):
+            sub = []
+            for k in range(i, j + 1):
+                sub.append(arr[k])
+            result.append(sub)
+
+    return result
+
+
+# 23. Maximum Sum Subarray (Kadane’s Algorithm)
+def max_subarray(arr):
+    max_sum = arr[0]
+    curr_sum = arr[0]
+
+    for i in range(1, len(arr)):
+        if curr_sum + arr[i] > arr[i]:
+            curr_sum = curr_sum + arr[i]
+        else:
+            curr_sum = arr[i]
+
+        if curr_sum > max_sum:
+            max_sum = curr_sum
+
+    return max_sum
